@@ -1,0 +1,12 @@
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/*.txt
+terraform/*.exe
+terraform/*.hcl
+terraform/*.info
+terraform/*.backup
+terraform/*.tfvars
+terraform/*.ini
+terraform/*.pem
+*.tfstate
+*.pem
