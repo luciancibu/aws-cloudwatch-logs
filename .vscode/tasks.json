@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+    "label": "Terraform Apply",
+    "type": "shell",
+    "command": "terraform apply --auto-approve",
+    "options": {
+        "cwd": "${workspaceFolder}/terraform",
+        "shell": {
+        "executable": "C:\\Program Files\\Git\\bin\\bash.exe",
+        "args": ["--login", "-i", "-c"]
+        }
+    },
+    "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+    },
+    "problemMatcher": []
+    }
+  
+  ]
+}
