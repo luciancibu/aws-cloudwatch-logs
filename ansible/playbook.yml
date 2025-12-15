@@ -1,0 +1,11 @@
+---
+- name: Configure EC2
+  hosts: localhost
+  connection: local
+  become: yes
+
+  roles:
+    - common
+    - httpd
+    - awslogs
+

@@ -1,0 +1,36 @@
+---
+- name: Install awslogs
+  yum:
+    name: awslogs
+    state: present
+
+- name: Download AWS CLI
+  get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /tmp/awscliv2.zip
+    mode: '0644'
+
+- name: Unzip AWS CLI
+  unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp
+    remote_src: yes
+    creates: /tmp/aws
+
+- name: Install AWS CLI
+  command: /tmp/aws/install
+  args:
+    creates: /usr/local/bin/aws
+
+- name: Configure awslogs
+  template:
+    src: awslogs.conf.j2
+    dest: /etc/awslogs/awslogs.conf
+    mode: '0644'
+  notify: restart awslogs
+
+- name: Enable and start awslogs
+  service:
+    name: awslogsd
+    state: started
+    enabled: yes

@@ -17,3 +17,16 @@ variable "myIP" {
 variable "instanceType" {
   default = "t3.micro"
 }
+
+variable "ansibleUserByOS" {
+  type        = map(string)
+  default = {
+    ubuntu       = "ubuntu"
+    amazonlinux  = "ec2-user"
+  }
+}
+
+variable "deployName" {
+  default = "deployment_script.sh"
+}
+

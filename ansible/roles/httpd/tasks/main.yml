@@ -1,0 +1,32 @@
+---
+- name: Install httpd
+  yum:
+    name: httpd
+    state: present
+
+- name: Enable and start httpd
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Download website template
+  get_url:
+    url: "{{ httpd_site_url }}"
+    dest: "{{ httpd_site_zip }}"
+    mode: '0644'
+
+- name: Unarchive website template
+  unarchive:
+    src: "{{ httpd_site_zip }}"
+    dest: "/tmp"
+    remote_src: yes
+    creates: "{{ httpd_site_dir }}"
+
+- name: Deploy website content
+  copy:
+    src: "{{ httpd_site_dir }}/"
+    dest: "{{ httpd_web_root }}/"
+    remote_src: yes
+  notify: restart httpd
+

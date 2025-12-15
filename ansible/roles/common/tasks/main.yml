@@ -1,0 +1,11 @@
+---
+- name: Install common packages
+  yum:
+    name:
+      - zip
+      - unzip
+      - wget
+      - curl
+      - vim
+      - git
+    state: present
