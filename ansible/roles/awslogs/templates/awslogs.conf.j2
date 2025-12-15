@@ -5,7 +5,25 @@ state_file = /var/lib/awslogs/agent-state
 datetime_format = %b %d %H:%M:%S
 file = /var/log/messages
 buffer_duration = 5000
-log_stream_name = {instance_id}
+log_stream_name = web-sys-logs
 initial_position = start_of_file
-log_group_name = /var/log/messages
+log_group_name = httpd-wave-web
+
+[/var/log/httpd/access_log]
+datetime_format = %b %d %H:%M:%S
+file = /var/log/httpd/access_log
+buffer_duration = 5000
+log_stream_name = web-httpd-access
+initial_position = start_of_file
+log_group_name = httpd-wave-web
+
+[/var/log/httpd/error_log]
+datetime_format = %b %d %H:%M:%S
+file = /var/log/httpd/error_log
+buffer_duration = 5000
+log_stream_name = web-httpd-error
+initial_position = start_of_file
+log_group_name = httpd-wave-web
+
+
 
