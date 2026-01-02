@@ -1,5 +1,5 @@
 ---
-- name: restart awslogs
-  service:
-    name: awslogsd
-    state: restarted
+- name: restart cloudwatch agent
+  command: >
+    /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl
+    -a restart

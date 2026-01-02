@@ -1,9 +1,4 @@
 ---
-- name: Install awslogs
-  yum:
-    name: awslogs
-    state: present
-
 - name: Download AWS CLI
   get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
@@ -22,15 +17,22 @@
   args:
     creates: /usr/local/bin/aws
 
-- name: Configure awslogs
-  template:
-    src: awslogs.conf.j2
-    dest: /etc/awslogs/awslogs.conf
-    mode: '0644'
-  notify: restart awslogs
+- name: Install CloudWatch Agent
+  yum:
+    name: amazon-cloudwatch-agent
+    state: present
 
-- name: Enable and start awslogs
-  service:
-    name: awslogsd
-    state: started
-    enabled: yes
+- name: Copy CloudWatch Agent config
+  copy:
+    src: cloudwatch-agent.json
+    dest: /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+
+
+- name: Start CloudWatch Agent
+  command: >
+    /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl
+    -a fetch-config
+    -m ec2
+    -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+    -s
+
